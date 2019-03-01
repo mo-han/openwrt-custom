@@ -4,6 +4,7 @@ PINCODE=$(dd if=/dev/mtd0 bs=1 count=8 skip=130560)
 MACADDR=$(ip link | grep wlan0: -A 1 | tail -n 1 | awk '{gsub(/:/,""); print toupper($2)}')
 WIFISSID=OpenWrt-$MACADDR
 
+uci set luci.apply.rollback=300
 [ "$PINCODE" != 00000000 ] && uci set wireless.radio0.disabled=0
 uci set wireless.default_radio0.ssid=$WIFISSID
 uci set wireless.radio0.country='CN'
