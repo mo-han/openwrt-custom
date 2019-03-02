@@ -1,6 +1,8 @@
 #!/bin/sh
 
+# PIN code at 0x1FE00 in breed bootloader
 PINCODE=$(dd if=/dev/mtd0 bs=1 count=8 skip=130560)
+# WiFi SSID in format of "OpenWrt-<MAC>"
 MACADDR=$(ip link | grep wlan0: -A 1 | tail -n 1 | awk '{gsub(/:/,""); print toupper($2)}')
 WIFISSID=OpenWrt-$MACADDR
 
